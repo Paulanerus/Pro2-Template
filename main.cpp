@@ -27,11 +27,7 @@ void simple_sort(std::vector<T>& v)
 			}
 		}
 
-		T temp = v[i];
-
-		v[i] = v[min];
-
-		v[min] = temp;
+		std::swap(v.at(i), v.at(min));
 	}
 }
 
