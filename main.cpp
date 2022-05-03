@@ -1,13 +1,23 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include "Student.h"
+#include "fstream"
+#include "StudentFileNotFoundException.h"
+
+std::ostream& operator<<(std::ostream& os, const Student& s)
+{
+	os << s.get_name() << " " << s.get_nachname() << " ist in der Gruppe: " << s.get_gruppe();
+
+	return os;
+}
 
 template<typename T>
 void print_vec(const std::vector<T>& v)
 {
 	for (auto& i: v)
 	{
-		std::cout << i << " ";
+		std::cout << i << "\n";
 	}
 
 	std::cout << std::endl;
@@ -46,6 +56,21 @@ int main()
 	print_vec(v2);
 	simple_sort(v2);
 	print_vec(v2);
+
+	std::cout << "=================================================" << std::endl;
+
+	std::vector<Student> students;
+
+	try
+	{
+		Student::read_them_all(students);
+	}
+	catch (StudentFileNotFoundException& e)
+	{
+		std::cout << "[EXCEPTION] Datei existiert nicht/kann nicht geoeffnet werden!" << std::endl;
+	}
+
+	print_vec(students);
 
 	return 0;
 }
