@@ -41,6 +41,43 @@ void simple_sort(std::vector<T>& v)
 	}
 }
 
+void shuffle_students(const std::vector<Student>& v)
+{
+	std::cout << "Hier ist noch nicht viel zu sehen" << std::endl;
+}
+
+template<typename T>
+void insert_sort(std::vector<T>& v)
+{
+	for (size_t i = 1; i < v.size(); i++)
+	{
+		T element = v.at(i);
+		size_t before = i - 1;
+
+		while (before >= 0 && v.at(before) > element)
+		{
+			v.at(before + 1) = v.at(before);
+			before--;
+		}
+		v[before + 1] = element;
+	}
+}
+
+template<typename T>
+void bubble_sort(std::vector<T>& v)
+{
+	for (size_t i = 0; i < v.size() - 1; i++)
+	{
+		for (size_t j = i + 1; j < v.size(); j++)
+		{
+			if (v.at(i) > v.at(j))
+			{
+				std::swap(v.at(i), v.at(j));
+			}
+		}
+	}
+}
+
 int main()
 {
 	std::vector<int> v = { 10, 7, 9, 8, 1, 2, 3, 4, 5, 6 };
@@ -71,6 +108,14 @@ int main()
 	}
 
 	print_vec(students);
+
+	std::cout << "=================================================" << std::endl;
+
+	shuffle_students(students);
+
+	print_vec(students);
+
+	std::cout << "=================================================" << std::endl;
 
 	return 0;
 }
