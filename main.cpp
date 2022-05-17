@@ -41,25 +41,29 @@ void simple_sort(std::vector<T>& v)
 	}
 }
 
-void shuffle_students(const std::vector<Student>& v)
+void shuffle_students(std::vector<Student>& v)
 {
-	std::cout << "Hier ist noch nicht viel zu sehen" << std::endl;
+	for (int i = 0; i < v.size(); i++)
+	{
+		std::swap(v[std::rand() % v.size()], v[std::rand() % v.size()]);
+	}
 }
 
 template<typename T>
 void insert_sort(std::vector<T>& v)
 {
-	for (size_t i = 1; i < v.size(); i++)
+	for (int i = 0; i < v.size() - 1; i++)
 	{
-		T element = v.at(i);
-		size_t before = i - 1;
+		T element = v.at(i + 1);
+		int j = i;
 
-		while (before >= 0 && v.at(before) > element)
+		while (j >= 0 && (element < v.at(j)))
 		{
-			v.at(before + 1) = v.at(before);
-			before--;
+			v[j + 1] = v[j];
+			j--;
 		}
-		v[before + 1] = element;
+
+		v[j + 1] = element;
 	}
 }
 
@@ -80,6 +84,8 @@ void bubble_sort(std::vector<T>& v)
 
 int main()
 {
+	std::srand(time(nullptr));
+
 	std::vector<int> v = { 10, 7, 9, 8, 1, 2, 3, 4, 5, 6 };
 
 	std::vector<std::string> v2 = { "Bali", "Jonas", "Ingo", "Adam", "Detlef", "Ewald", "Carl", "Georg", "Harald",
@@ -109,13 +115,99 @@ int main()
 
 	print_vec(students);
 
+	std::cout << "Sortierung: Name dann Gruppe" << std::endl;
+
+	std::cout << "Simple Sort" << std::endl;
 	std::cout << "=================================================" << std::endl;
 
 	shuffle_students(students);
 
+	Student::sort = 0;
+
+	simple_sort(students);
+
+	Student::sort = 1;
+
+	simple_sort(students);
+
 	print_vec(students);
 
+	std::cout << "Bubble Sort" << std::endl;
 	std::cout << "=================================================" << std::endl;
+
+	shuffle_students(students);
+
+	Student::sort = 0;
+
+	bubble_sort(students);
+
+	Student::sort = 1;
+
+	bubble_sort(students);
+
+	print_vec(students);
+
+	std::cout << "Insert Sort" << std::endl;
+	std::cout << "=================================================" << std::endl;
+
+	shuffle_students(students);
+
+	Student::sort = 0;
+
+	insert_sort(students);
+
+	Student::sort = 1;
+
+	insert_sort(students);
+
+	print_vec(students);
+
+	std::cout << "Sortierung: Gruppe dann Nachname" << std::endl;
+
+	std::cout << "Simple Sort" << std::endl;
+	std::cout << "=================================================" << std::endl;
+
+	shuffle_students(students);
+
+	Student::sort = 1;
+
+	simple_sort(students);
+
+	Student::sort = 2;
+
+	simple_sort(students);
+
+	print_vec(students);
+
+	std::cout << "Bubble Sort" << std::endl;
+	std::cout << "=================================================" << std::endl;
+
+	shuffle_students(students);
+
+	Student::sort = 1;
+
+	bubble_sort(students);
+
+	Student::sort = 2;
+
+	bubble_sort(students);
+
+	print_vec(students);
+
+	std::cout << "Insert Sort" << std::endl;
+	std::cout << "=================================================" << std::endl;
+
+	shuffle_students(students);
+
+	Student::sort = 1;
+
+	insert_sort(students);
+
+	Student::sort = 2;
+
+	insert_sort(students);
+
+	print_vec(students);
 
 	return 0;
 }
