@@ -1,7 +1,10 @@
 #include "Student.h"
 #include "StudentFileNotFoundException.h"
+#include <iostream>
 #include <fstream>
 #include <string>
+
+int Student::sort = 0;
 
 Student::Student(std::string n, std::string nn, std::string g)
 {
@@ -57,4 +60,30 @@ void Student::read_them_all(std::vector<Student>& v)
 	}
 
 	students_file.close();
+}
+
+bool Student::operator>(const Student& s)
+{
+	if (sort == 0)
+	{
+		return this->name > s.get_name();
+	}
+	else if (sort == 1)
+	{
+		return this->gruppe > s.get_gruppe();
+	}
+	return this->nachname > s.get_nachname();
+}
+
+bool Student::operator<(const Student& s)
+{
+	if (sort == 0)
+	{
+		return this->name < s.get_name();
+	}
+	else if (sort == 1)
+	{
+		return this->gruppe < s.get_gruppe();
+	}
+	return this->nachname < s.get_nachname();
 }
